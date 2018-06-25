@@ -13,7 +13,7 @@ server.on('error', err => {
 
 server.listen({
     host: 'localhost',
-    port: 7777,
+    port: 50000,
     exclusive: true
 }, () => {
     console.log('Server started.');
