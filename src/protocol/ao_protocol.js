@@ -1,38 +1,24 @@
 import {createClient} from "../game/client";
+import {Network} from "./network";
 
-export function createConnection(socket) {
-    const client = createClient();
-
-    const sendRawMessage = (msg) => {
-        console.log('sending ' + msg);
-        socket.write(msg, 'utf8')
-    };
-
-    const sendCommand = (cmd, ...args) => {
+class AONetwork extends Network {
+    sendCommand(cmd, ...args) {
         const delimiter = '#';
         let msg = cmd + delimiter + args.join(delimiter) + '#%';
-        sendRawMessage(msg);
-    };
+        this.sendRawMessage(msg);
+    }
+}
 
-    addHandlers(client, socket);
+export function createConnection(socket) {
+    const client = createClient(new AONetwork(socket));
 
-    sendCommand('decryptor', 34);
-    sendCommand('FL', 'yellowtext', 'customobjections', 'flipping', 'fastloading', 'noencryption', 'deskmod', 'evidence');
+    client.network.sendCommand('decryptor', 34);
+    client.network.sendCommand('FL', 'yellowtext', 'customobjections', 'flipping', 'fastloading', 'noencryption', 'deskmod', 'evidence');
 
     const buffer = Buffer.alloc(8192);
     buffer.curSize = 0;
 
     socket.on('data', data => onData(client, data, buffer));
-}
-
-function addHandlers(client, socket) {
-    client.disconnect = () => {
-        socket.end();
-    };
-
-    client.sendMessage = (msg) => {
-        // TODO
-    };
 }
 
 function onData(client, data, buffer) {

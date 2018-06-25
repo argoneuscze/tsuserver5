@@ -1,15 +1,4 @@
-export const createClient = () => ({
+export const createClient = (networkInterface) => ({
+    network: networkInterface,
     ooc_name: "Name",
-
-    /**
-     * Everything below here relies on protocol implementation.
-     */
-
-    disconnect: () => {
-        throw 'disconnect not implemented.'
-    },
-
-    sendMessage: (msg) => {
-        throw 'sendMessage not implemented.'
-    }
 });
