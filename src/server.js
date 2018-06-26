@@ -1,5 +1,3 @@
-'use strict';
-
 import {createConnection} from "./protocol/ao_protocol";
 
 const net = require('net');
