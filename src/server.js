@@ -1,8 +1,11 @@
 import {createConnection} from "./protocol/ao_protocol";
+import {Game} from "./game/game";
+
+const game = new Game();
 
 const net = require('net');
 const server = net.createServer(conn => {
-    createConnection(conn);
+    createConnection(conn, game);
 });
 
 server.on('error', err => {

@@ -8,7 +8,7 @@ export class Network {
         this.socket.write(msg, 'utf8')
     }
 
-    sendMessage(msg) {
+    sendICMessage(msg) {
         throw 'Not implemented.'
     }
 }
